@@ -47,20 +47,21 @@ const updateUserProfile = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-
-  const { email, password } = req.body;
-  return User.findUserByCredentials(email, password)
-    .then((user) => {
-      if (!user) {
-        throw new UnauthorizedError('Неправильный логин или пароль');
-      } else {
-        const token = jwt.sign({ _id: user._id }, `${process.env.JWT_SECRET}`, { expiresIn: '7d' });
-        res.send([{ token },  process.env.JWT_SECRET]);
-      }
-    })
-    .catch((err) => {
-      next(err);
-    });
+  res.send(process.env.JWT_SECRET)
+  //
+  // const { email, password } = req.body;
+  // return User.findUserByCredentials(email, password)
+  //   .then((user) => {
+  //     if (!user) {
+  //       throw new UnauthorizedError('Неправильный логин или пароль');
+  //     } else {
+  //       const token = jwt.sign({ _id: user._id }, `${process.env.JWT_SECRET}`, { expiresIn: '7d' });
+  //       res.send({ token }, process.env.JWT_SECRET);
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     next(err);
+  //   });
 };
 
 const createUser = (req, res, next) => {
