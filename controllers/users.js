@@ -59,9 +59,9 @@ const login = (req, res, next) => {
   //       res.send({ token }, process.env.JWT_SECRET);
   //     }
   //   })
-  //   .catch((err) => {
-  //     next(err);
-  //   });
+    .catch((err) => {
+      next(err);
+    });
 };
 
 const createUser = (req, res, next) => {
