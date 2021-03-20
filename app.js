@@ -26,7 +26,7 @@ mongoose.connection.on('open', () => {
 mongoose.connection.on('error', () => {
 });
 
-console.log(process.env.JWT)
+
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(requestLogger);
