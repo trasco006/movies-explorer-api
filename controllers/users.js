@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const { UnauthorizedError } = require('../middlewares/errors');
 require('dotenv').config();
 const { NotFoundError, BadRequestError, ConflictError } = require('../middlewares/errors');
 
@@ -27,7 +28,6 @@ const updateUserProfile = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-      upsert: true,
     })
     .orFail(() => {
       throw new NotFoundError('Пользователь с таким id не найден');
@@ -51,10 +51,11 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Неправильный логин или пароль');
+        throw new UnauthorizedError('Неправильный логин или пароль');
+      } else {
+        const token = jwt.sign({ _id: user._id }, `${process.env.JWT_SECRET}`, { expiresIn: '7d' });
+        res.send({ token });
       }
-      const token = jwt.sign({ _id: user._id }, `${process.env.JWT_SECRET}`, { expiresIn: '7d' });
-      res.send({ token });
     })
     .catch((err) => {
       next(err);

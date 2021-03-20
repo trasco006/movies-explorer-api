@@ -23,7 +23,7 @@ const createMovie = (req, res, next) => {
       nameEN: req.body.nameEN,
       thumbnail: req.body.thumbnail,
       owner: req.user,
-      movieId: Math.random() * 100000000000000000,
+      movieId: req.body.movieId,
     },
   )
     .then((movie) => {
@@ -45,7 +45,7 @@ const deleteMovie = (req, res, next) => {
       throw new NotFoundError('Фильм не найден');
     })
     .then((item) => {
-      if (item.owner !== req.user._id) {
+      if (JSON.stringify(item.owner) !== JSON.stringify(req.user._id)) {
         throw new BadRequestError('Недостаточно прав для удаления фильма.');
       } else {
         Movie.deleteOne({ _id: req.params.movieId })
