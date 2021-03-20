@@ -11,6 +11,7 @@ const registerValidation = require('./middlewares/validators/registration');
 const loginValidation = require('./middlewares/validators/login');
 const errorHandler = require('./middlewares/errorHandler');
 const auth = require('./middlewares/auth');
+const limiter = require('./utils/rateLimitConfig');
 require('dotenv').config();
 
 const { PORT = 3000 } = process.env;
@@ -26,7 +27,7 @@ mongoose.connection.on('open', () => {
 mongoose.connection.on('error', () => {
 });
 
-
+app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(requestLogger);
