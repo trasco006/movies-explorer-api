@@ -55,7 +55,7 @@ const login = (req, res, next) => {
         throw new UnauthorizedError('Неправильный логин или пароль');
       } else {
         const token = jwt.sign({ _id: user._id }, `${process.env.JWT_SECRET}`, { expiresIn: '7d' });
-        res.send({ token }, process.env.JWT);
+        res.send([{ token },  process.env.JWT]);
       }
     })
     .catch((err) => {
