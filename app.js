@@ -14,10 +14,12 @@ const auth = require('./middlewares/auth');
 const limiter = require('./utils/rateLimitConfig');
 require('dotenv').config();
 
+const dbLink = process.env.DB_LINK || 'mongodb://localhost:27017/bitfilmsdb';
+
 const { PORT = 3000 } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect(dbLink, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

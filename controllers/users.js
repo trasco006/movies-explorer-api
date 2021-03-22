@@ -6,6 +6,8 @@ const { UnauthorizedError } = require('../middlewares/errors');
 require('dotenv').config();
 const { NotFoundError, BadRequestError, ConflictError } = require('../middlewares/errors');
 
+const secret = process.env.JWT_SECRET || 'default secret';
+
 const getUser = (req, res, next) => {
   User.findById(req.user)
     .then((user) => {
@@ -48,19 +50,13 @@ const updateUserProfile = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  let JWT_SECRET;
-  if (process.env.NODE_ENV !== 'production') {
-    JWT_SECRET = 'super-secret-key';
-  } else {
-    JWT_SECRET = process.env.JWT_SECRET;
-  }
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
         throw new UnauthorizedError(errorMessages.unauthorized);
       } else {
-        const token = jwt.sign({ _id: user._id }, { JWT_SECRET }, { expiresIn: '7d' });
+        const token = jwt.sign({ _id: user._id }, secret, { expiresIn: '7d' });
         res.send(token);
       }
     })

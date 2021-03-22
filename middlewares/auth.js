@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+const secret = process.env.JWT_SECRET || 'default secret';
+
 const handleAuthError = (res) => {
   res
     .status(401)
@@ -15,14 +17,8 @@ const auth = (req, res, next) => {
     return handleAuthError(res);
   }
   process.env.JWT = extractBearerToken(authorization);
-  let JWT_SECRET;
-  if (process.env.NODE_ENV !== 'production') {
-    JWT_SECRET = 'super-secret-key';
-  } else {
-    JWT_SECRET = process.env.JWT_SECRET;
-  }
   try {
-    const user = jwt.verify(process.env.JWT, { JWT_SECRET });
+    const user = jwt.verify(process.env.JWT, secret);
     req.user = user;
   } catch (err) {
     return handleAuthError(res);
