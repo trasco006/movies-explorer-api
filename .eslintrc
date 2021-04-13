@@ -1,0 +1,8 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "no-underscore-dangle": "off",
+    "eqeqeq": [2, "smart"],
+    "max-classes-per-file": ["error", 10]
+  }
+}
