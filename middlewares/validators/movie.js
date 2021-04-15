@@ -18,7 +18,7 @@ const createMovieValidation = celebrate({
       'string.max': 'Максимальная длительность 999 минут',
       'any.required': 'Обязательное поле',
     }),
-    year: Joi.string().min(2).max(1).messages({
+    year: Joi.string().min(1).max(4).messages({
       'string.min': 'Минимальная длина 2 символа',
       'string.max': 'Максимальная длина 30 символов',
       'any.required': 'Обязательное поле',
