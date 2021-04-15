@@ -3,9 +3,9 @@ const validator = require('validator');
 
 const createMovieValidation = celebrate({
   body: {
-    country: Joi.string().min(2).max(30).messages({
+    country: Joi.string().min(2).max(500).messages({
       'string.min': 'Минимальная длина названия страны 2 символа',
-      'string.max': 'Максимальная длина названия страны 30 символов',
+      'string.max': 'Максимальная длина названия страны 500 символов',
       'any.required': 'Обязательное поле',
     }),
     director: Joi.string().min(2).max(130).messages({
