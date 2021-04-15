@@ -8,9 +8,9 @@ const createMovieValidation = celebrate({
       'string.max': 'Максимальная длина названия страны 30 символов',
       'any.required': 'Обязательное поле',
     }),
-    director: Joi.string().min(2).max(30).messages({
+    director: Joi.string().min(2).max(130).messages({
       'string.min': 'Минимальная длина имени 2 символа',
-      'string.max': 'Максимальная длина имени 30 символов',
+      'string.max': 'Максимальная длина имени 130 символов',
       'any.required': 'Обязательное поле',
     }),
     duration: Joi.number().min(1).max(360).messages({
@@ -20,7 +20,7 @@ const createMovieValidation = celebrate({
     }),
     year: Joi.string().min(1).max(4).messages({
       'string.min': 'Минимальная длина 2 символа',
-      'string.max': 'Максимальная длина 30 символов',
+      'string.max': 'Максимальная длина 4 символов',
       'any.required': 'Обязательное поле',
     }),
     description: Joi.string().min(2).max(150).messages({
