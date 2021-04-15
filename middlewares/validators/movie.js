@@ -13,7 +13,7 @@ const createMovieValidation = celebrate({
       'string.max': 'Максимальная длина имени 30 символов',
       'any.required': 'Обязательное поле',
     }),
-    duration: Joi.number().min(1).max(3).messages({
+    duration: Joi.number().min(1).max(360).messages({
       'string.min': 'Минимальная длительность 1 минута',
       'string.max': 'Максимальная длительность 999 минут',
       'any.required': 'Обязательное поле',
