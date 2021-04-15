@@ -8,6 +8,11 @@ const createMovieValidation = celebrate({
       'string.max': 'Максимальная длина названия страны 500 символов',
       'any.required': 'Обязательное поле',
     }),
+    owner: Joi.string().min(2).max(500).messages({
+      'string.min': 'Минимальная длина  2 символа',
+      'string.max': 'Максимальная длина  500 символов',
+      'any.required': 'Обязательное поле',
+    }),
     director: Joi.string().min(2).max(130).messages({
       'string.min': 'Минимальная длина имени 2 символа',
       'string.max': 'Максимальная длина имени 130 символов',
