@@ -23,7 +23,7 @@ const createMovieValidation = celebrate({
       'string.max': 'Максимальная длина 30 символов',
       'any.required': 'Обязательное поле',
     }),
-    description: Joi.string().min(2).max(50).messages({
+    description: Joi.string().min(2).max(150).messages({
       'string.min': 'Минимальная длина 2 символа',
       'string.max': 'Максимальная длина 50 символов',
       'any.required': 'Обязательное поле',
