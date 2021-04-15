@@ -13,7 +13,7 @@ const createMovieValidation = celebrate({
       'string.max': 'Максимальная длина имени 130 символов',
       'any.required': 'Обязательное поле',
     }),
-    movieId: Joi.string().min(2).max(130).messages({
+    movieId: Joi.number().min(2).max(9999).messages({
       'string.min': 'Минимальная длина  2 символа',
       'string.max': 'Максимальная длина  130 символов',
       'any.required': 'Обязательное поле',
