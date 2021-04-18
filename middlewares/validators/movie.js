@@ -51,14 +51,14 @@ const createMovieValidation = celebrate({
       }
       return helper.message('Не валидная ссылка');
     }),
-    nameRU: Joi.string().min(2).max(30).messages({
+    nameRU: Joi.string().min(2).max(300).messages({
       'string.min': 'Минимальная длина имени 2 символа',
-      'string.max': 'Максимальная длина имени 30 символов',
+      'string.max': 'Максимальная длина имени 300 символов',
       'any.required': 'Обязательное поле',
     }),
-    nameEN: Joi.string().min(2).max(30).messages({
+    nameEN: Joi.string().min(2).max(300).messages({
       'string.min': 'Минимальная длина имени 2 символа',
-      'string.max': 'Максимальная длина имени 30 символов',
+      'string.max': 'Максимальная длина имени 300 символов',
       'any.required': 'Обязательное поле',
     })
       .message({
