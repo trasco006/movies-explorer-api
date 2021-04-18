@@ -12,36 +12,41 @@ const getMovies = (req, res, next) => {
 };
 const createMovie = (req, res, next) => {
   Movie.findOne({nameRU: req.body.nameRU})
-    .then(a=>res.send('такой уже есть'))
-
-  Movie.create(
-    {
-      country: req.body.country,
-      director: req.body.director,
-      duration: req.body.duration,
-      year: req.body.year,
-      description: req.body.description,
-      image: req.body.image,
-      trailer: req.body.trailer,
-      nameRU: req.body.nameRU,
-      nameEN: req.body.nameEN,
-      thumbnail: req.body.thumbnail,
-      owner: req.user,
-      movieId: req.body.movieId,
-    },
-  )
-    .then((movie) => {
-      res.status(200).send(movie);
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new NotFoundError(err));
-      } else if (err.name === 'ValidationError') {
-        next(new BadRequestError(errorMessages.badRequest));
+    .then(movie=>{
+      if (movie){
+        res.send('такой фильм уже есть')
       } else {
-        next(err);
+        Movie.create(
+          {
+            country: req.body.country,
+            director: req.body.director,
+            duration: req.body.duration,
+            year: req.body.year,
+            description: req.body.description,
+            image: req.body.image,
+            trailer: req.body.trailer,
+            nameRU: req.body.nameRU,
+            nameEN: req.body.nameEN,
+            thumbnail: req.body.thumbnail,
+            owner: req.user,
+            movieId: req.body.movieId,
+          },
+        )
+          .then((movie) => {
+            res.status(200).send(movie);
+          })
+          .catch((err) => {
+            if (err.name === 'CastError') {
+              next(new NotFoundError(err));
+            } else if (err.name === 'ValidationError') {
+              next(new BadRequestError(errorMessages.badRequest));
+            } else {
+              next(err);
+            }
+          });
       }
-    });
+    })
+
 };
 const deleteMovie = (req, res, next) => {
   Movie.findOne({ _id: req.params.movieId })
