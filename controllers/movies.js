@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
 const errorMessages = require('../utils/constants');
+const {ConflictError} = require("../middlewares/errors");
 const {
   BadRequestError,
   NotFoundError,
@@ -14,7 +15,7 @@ const createMovie = (req, res, next) => {
   Movie.findOne({nameRU: req.body.nameRU})
     .then(movie=>{
       if (movie){
-        res.send('такой фильм уже есть')
+        throw new ConflictError(errorMessages.conflictEmail);
       } else {
         Movie.create(
           {
@@ -46,6 +47,9 @@ const createMovie = (req, res, next) => {
           });
       }
     })
+    .catch((err) => {
+      next(err);
+    });
 
 };
 const deleteMovie = (req, res, next) => {
