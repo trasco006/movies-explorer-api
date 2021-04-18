@@ -11,6 +11,9 @@ const getMovies = (req, res, next) => {
     .catch((err) => next(err));
 };
 const createMovie = (req, res, next) => {
+  Movie.findOne({nameRU: req.body.nameRU})
+    .then(a=>res.send('такой уже есть'))
+
   Movie.create(
     {
       country: req.body.country,
