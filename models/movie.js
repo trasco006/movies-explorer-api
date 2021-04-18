@@ -47,10 +47,12 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   nameEN: {
+    unique: true,
     type: String,
     required: true,
   },
   movieId: {
+    unique: true,
     type: String,
     required: true,
   },
